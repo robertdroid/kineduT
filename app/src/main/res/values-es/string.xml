@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_activity_crawling">Gateando</string>
+    <string name="tab_activities">Actividades</string>
+    <string name="tab_articles">Articulos</string>
+
+    <string name="filter_all_months">TODOS LOS MESES</string>
+    <string name="filter_0_1_month">0&#8211;1 MES</string>
+    <string name="filter_n_month">%1$d MES</string>
+</resources>
