@@ -8,7 +8,7 @@ object Const {
     object Endpoints {
         const val ACTIVITIES = "${CATALOGUE}activities"
         const val ARTICLES = "${CATALOGUE}articles/"
-        const val ARTICLE_DETAIL = "${ARTICLES}{${Params.ID}}"
+        const val ARTICLE_DETAIL = "articles/{${Params.ID}}"
     }
 
     object Params {
@@ -32,5 +32,9 @@ object Const {
         const val PICTURE = "picture"
         const val SHORT_DESCRIPTION = "short_description"
         const val ARTICLES = "articles"
+        const val ARTICLE = "article"
+        const val TITLE = "title"
+        const val LINK = "link"
+        const val BODY = "body"
     }
 }

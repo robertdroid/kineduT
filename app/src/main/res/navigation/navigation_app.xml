@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation_app"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_app"
     app:startDestination="@id/crawlingFragment">
 
     <fragment
         android:id="@+id/crawlingFragment"
         android:name="net.devrob.kinedut.ui.fragments.CrawlingFragment"
-        android:label="CrawlingFragment" />
+        tools:layout="@layout/fragment_main_crawling"
+        android:label="CrawlingFragment" >
+        <action
+            android:id="@+id/action_crawlingFragment_to_articleDetailFragment"
+            app:destination="@id/articleDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/articleDetailFragment"
+        android:name="net.devrob.kinedut.ui.fragments.ArticleDetailFragment"
+        tools:layout="@layout/fragment_article_detail"
+        android:label="ArticleDetailFragment" >
+        <argument
+            android:name="article"
+            app:argType="net.devrob.kinedut.models.Article"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>

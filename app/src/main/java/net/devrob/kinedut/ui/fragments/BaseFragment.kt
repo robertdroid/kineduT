@@ -19,13 +19,14 @@ abstract class BaseFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
+        val viewModelHolder = upcastBaseViewModel()
+        baseViewModel = viewModelHolder ?: ViewModelProviders.of(this).get(BaseViewModel::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewModelHolder = upcastBaseViewModel()
-        baseViewModel = viewModelHolder ?: ViewModelProviders.of(this).get(BaseViewModel::class.java)
+
 
         baseViewModel.isLoading.observe(this, Observer { isLoading ->
             isLoading ?: return@Observer
