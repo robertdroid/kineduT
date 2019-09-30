@@ -1,26 +1,18 @@
 package net.devrob.kinedut.ui.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.fragment.app.Fragment
 import com.tiper.MaterialSpinner
 import kotlinx.android.synthetic.main.fragment_main_crawling.*
 import net.devrob.kinedut.R
+import net.devrob.kinedut.adapters.SectionsPagerAdapter
 import net.devrob.kinedut.commons.SpinnerObject
-import net.devrob.kinedut.ui.MainActivity
-import net.devrob.kinedut.ui.main.SectionsPagerAdapter
+import net.devrob.kinedut.viewModels.BaseViewModel
 
-class CrawlingFragment : Fragment() {
-    lateinit var mainActivity: MainActivity
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mainActivity = activity as MainActivity
-    }
+class CrawlingFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +25,10 @@ class CrawlingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(mainActivity, mainActivity.supportFragmentManager)
+        val sectionsPagerAdapter = SectionsPagerAdapter(
+            mainActivity,
+            mainActivity.supportFragmentManager
+        )
         view_pager.adapter = sectionsPagerAdapter
         tabs.setupWithViewPager(view_pager)
 
@@ -64,5 +59,9 @@ class CrawlingFragment : Fragment() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner_filter.adapter = adapter
         spinner_filter.selection = 0
+    }
+
+    override fun upcastBaseViewModel(): BaseViewModel? {
+        return null
     }
 }

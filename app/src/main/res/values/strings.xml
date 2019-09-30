@@ -7,5 +7,6 @@
     <string name="filter_all_months">ALL MONTHS</string>
     <string name="filter_0_1_month">0&#8211;1 MONTH</string>
     <string name="filter_n_month">%1$d MONTH</string>
+    <string name="loading_image">loading image</string>
 
 </resources>
