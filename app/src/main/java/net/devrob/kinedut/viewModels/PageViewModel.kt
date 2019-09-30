@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import net.devrob.kinedut.adapters.ActivitiesAdapter
 import net.devrob.kinedut.adapters.ArticlesAdapter
 import net.devrob.kinedut.api.RetrofitHelper
+import net.devrob.kinedut.commons.DataSession
 import net.devrob.kinedut.models.Activity
 import net.devrob.kinedut.models.Article
 
@@ -37,20 +38,25 @@ class PageViewModel : BaseViewModel() {
         }
     }
 
-    private fun getActivities() {
-        GlobalScope.launch {
-            isLoading.postValue(true)
-            val result = RetrofitHelper.getActivities(5)
-            if (result.isError) {
-                //TODO perform error actions
-            } else {
-                if (result.statusCode == 200 && result.objeto != null) {
-                    activities.postValue(result.objeto?.data?.activities)
+    fun getActivities() {
+        if (DataSession.activities.isNotEmpty()) {
+            activities.postValue(DataSession.activities)
+        } else {
+            GlobalScope.launch {
+                isLoading.postValue(true)
+                val result = RetrofitHelper.getActivities(5)
+                if (result.isError) {
+                    //TODO perform error actions
                 } else {
-                    //TODO: perform no response actions
+                    if (result.statusCode == 200 && result.objeto != null) {
+                        DataSession.activities = result.objeto?.data?.activities!!
+                        activities.postValue(result.objeto?.data?.activities)
+                    } else {
+                        //TODO: perform no response actions
+                    }
                 }
+                isLoading.postValue(false)
             }
-            isLoading.postValue(false)
         }
     }
 

@@ -3,6 +3,7 @@ package net.devrob.kinedut.api
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import net.devrob.kinedut.api.response.ActivitiesResponse
+import net.devrob.kinedut.api.response.ArticleDetailResponse
 import net.devrob.kinedut.api.response.ArticleReponse
 import net.devrob.kinedut.commons.Const
 import net.devrob.kinedut.commons.Const.BASE_URL
@@ -55,6 +56,13 @@ object RetrofitHelper {
             skillId,
             DataSession.sessionBabyId)
         return performRequest(call)
+    }
+
+    suspend fun getArticleDetail(idArticle: Int): RequestResponse<ArticleDetailResponse> {
+        val call = restClient.getArticleDetail(
+            String.format(Const.TOKEN_VALUE, DataSession.sessionToken),
+            idArticle)
+        return  performRequest(call)
     }
     
     private suspend fun <T>performRequest(call: Call<T>) = suspendCoroutine<RequestResponse<T>> { continuation ->

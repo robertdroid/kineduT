@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_crawling.*
 import net.devrob.kinedut.R
@@ -39,8 +41,9 @@ class PlaceholderFragment : BaseFragment() {
 
         pageViewModel.adapterArticle.observe(this, Observer {
             rvData.adapter = it
-            it.setOnSelectedListener {
-
+            it.setOnSelectedListener { article ->
+                val bundle = bundleOf("article" to article)
+                findNavController().navigate(R.id.action_crawlingFragment_to_articleDetailFragment, bundle)
             }
             rvData.layoutManager = LinearLayoutManager(activity)
         })
@@ -49,7 +52,6 @@ class PlaceholderFragment : BaseFragment() {
     companion object {
         private const val ARG_SECTION_NUMBER = "section_number"
 
-        @JvmStatic
         fun newInstance(sectionNumber: Int): PlaceholderFragment {
             return PlaceholderFragment().apply {
                 arguments = Bundle().apply {

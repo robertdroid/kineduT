@@ -20,7 +20,7 @@ class ArticlesAdapter (
     private var selectListener: (Article) -> Unit = {}
 
     fun setOnSelectedListener(listener: (Article) -> Unit) {
-        selectListener
+        selectListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

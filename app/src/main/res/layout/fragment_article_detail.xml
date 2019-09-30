@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivBanner"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorTextTitles">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="8dp"
+            android:textSize="16sp"
+            android:textColor="@color/colorAccent"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".1"
+            android:padding="8dp"
+            android:layout_gravity="center"
+            app:srcCompat="@android:drawable/ic_menu_share" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <org.sufficientlysecure.htmltextview.HtmlTextView
+        android:id="@+id/html_text"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColorLink="@color/colorTabsBg"
+        android:textAppearance="@android:style/TextAppearance.Small" />
+</LinearLayout>
