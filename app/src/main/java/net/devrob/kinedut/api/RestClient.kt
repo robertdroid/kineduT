@@ -1,7 +1,9 @@
 package net.devrob.kinedut.api
 
 import net.devrob.kinedut.api.response.ActivitiesResponse
+import net.devrob.kinedut.api.response.ArticleReponse
 import net.devrob.kinedut.commons.Const.Endpoints.ACTIVITIES
+import net.devrob.kinedut.commons.Const.Endpoints.ARTICLES
 import net.devrob.kinedut.commons.Const.Params.AUTHORIZATION
 import net.devrob.kinedut.commons.Const.Params.BABY_ID
 import net.devrob.kinedut.commons.Const.Params.SKILL_ID
@@ -16,4 +18,10 @@ interface RestClient {
         @Header(AUTHORIZATION) auth: String,
         @Query(SKILL_ID) skillId: Int,
         @Query(BABY_ID) babyId: Int): Call<ActivitiesResponse>
+
+    @GET(ARTICLES)
+    fun getArticles(
+        @Header(AUTHORIZATION) auth: String,
+        @Query(SKILL_ID) skillId: Int,
+        @Query(BABY_ID) babyId: Int): Call<ArticleReponse>
 }

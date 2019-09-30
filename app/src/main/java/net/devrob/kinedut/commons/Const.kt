@@ -27,5 +27,10 @@ object Const {
         const val TYPE = "type"
         const val ACTIVITIES = "activities"
         const val DATA = "data"
+        const val MIN_AGE = "min_age"
+        const val MAX_AGE = "max_age"
+        const val PICTURE = "picture"
+        const val SHORT_DESCRIPTION = "short_description"
+        const val ARTICLES = "articles"
     }
 }
