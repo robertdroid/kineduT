@@ -36,6 +36,14 @@ class PlaceholderFragment : BaseFragment() {
             rvData.adapter = it
             rvData.layoutManager = LinearLayoutManager(activity)
         })
+
+        pageViewModel.adapterArticle.observe(this, Observer {
+            rvData.adapter = it
+            it.setOnSelectedListener {
+
+            }
+            rvData.layoutManager = LinearLayoutManager(activity)
+        })
     }
 
     companion object {
