@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import com.google.android.material.tabs.TabLayout
 import com.tiper.MaterialSpinner
 import kotlinx.android.synthetic.main.fragment_main_crawling.*
 import net.devrob.kinedut.R
@@ -13,6 +14,7 @@ import net.devrob.kinedut.commons.SpinnerObject
 import net.devrob.kinedut.viewModels.BaseViewModel
 
 class CrawlingFragment : BaseFragment() {
+    lateinit var sectionsPagerAdapter: SectionsPagerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,7 +27,7 @@ class CrawlingFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(
+        sectionsPagerAdapter = SectionsPagerAdapter(
             mainActivity,
             mainActivity.supportFragmentManager
         )
@@ -33,6 +35,21 @@ class CrawlingFragment : BaseFragment() {
         tabs.setupWithViewPager(view_pager)
 
         populateSpinner()
+        initEvents()
+    }
+
+    private fun initEvents() {
+        tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                tab?.let {
+                    mainActivity.currentPage = it.position
+                    mainActivity.performSearch()
+                }
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) { }
+            override fun onTabUnselected(tab: TabLayout.Tab?) { }
+        })
 
         spinner_filter.onItemSelectedListener = object : MaterialSpinner.OnItemSelectedListener {
             override fun onItemSelected(
@@ -41,6 +58,7 @@ class CrawlingFragment : BaseFragment() {
                 position: Int,
                 id: Long) {
                 mainActivity.currentFilter = (spinner_filter.selectedItem as SpinnerObject).id
+                mainActivity.performSearch()
             }
 
             override fun onNothingSelected(parent: MaterialSpinner) {

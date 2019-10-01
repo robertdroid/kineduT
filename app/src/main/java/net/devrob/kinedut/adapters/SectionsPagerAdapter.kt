@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 import net.devrob.kinedut.R
 import net.devrob.kinedut.ui.fragments.PlaceholderFragment
 
@@ -17,7 +18,7 @@ private val TAB_TITLES = arrayOf(
  * one of the sections/tabs/pages.
  */
 class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
-    FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+    FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getItem(position: Int): Fragment {
         return PlaceholderFragment.newInstance(position + 1)

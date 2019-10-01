@@ -14,7 +14,7 @@ import net.devrob.kinedut.R
 
 class ActivitiesAdapter(
     val adapterContext: Context,
-    private val items: ArrayList<net.devrob.kinedut.models.Activity>
+    private var items: ArrayList<net.devrob.kinedut.models.Activity>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -38,6 +38,11 @@ class ActivitiesAdapter(
     }
 
     override fun getItemCount() = items.size
+
+    fun updateValues(items: ArrayList<net.devrob.kinedut.models.Activity>) {
+        this.items = items
+        notifyDataSetChanged()
+    }
 
     class ViewHolderActivity(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivImage: AppCompatImageView? = itemView.ivImage
