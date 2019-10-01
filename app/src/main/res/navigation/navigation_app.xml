@@ -12,7 +12,10 @@
         android:label="CrawlingFragment" >
         <action
             android:id="@+id/action_crawlingFragment_to_articleDetailFragment"
-            app:destination="@id/articleDetailFragment" />
+            app:destination="@id/articleDetailFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/navigation_app"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/articleDetailFragment"
@@ -24,5 +27,11 @@
             app:argType="net.devrob.kinedut.models.Article"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_articleDetailFragment_to_crawlingFragment"
+            app:destination="@id/crawlingFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/navigation_app"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

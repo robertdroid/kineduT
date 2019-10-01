@@ -20,6 +20,7 @@ class PageViewModel : BaseViewModel() {
 
     val adapterActivity: LiveData<ActivitiesAdapter> = Transformations.map(activities) {
         val adapter = ActivitiesAdapter(context!!, activities.value!!)
+        adapter.updateValues(activities.value!!)
         adapter
     }
 
@@ -29,18 +30,27 @@ class PageViewModel : BaseViewModel() {
     }
 
 
-    fun setIndex(sectionNum: Int, filterMonth: Int, context: Context) {
+    fun setIndex(sectionNum: Int, context: Context, filterMonth: Int = -1) {
         this.context = context
         if (sectionNum == 1)
-            getActivities()
+            getActivities(filterMonth)
         else {
             getArticles()
         }
     }
 
-    fun getActivities() {
+    fun getActivities(filterMonth: Int = -1) {
         if (DataSession.activities.isNotEmpty()) {
-            activities.postValue(DataSession.activities)
+            if (filterMonth <= 0)
+                activities.postValue(DataSession.activities)
+            else {
+                activities.postValue(
+                    ArrayList(
+                        DataSession.activities.filter {
+                            it.age == filterMonth
+                        })
+                )
+            }
         } else {
             GlobalScope.launch {
                 isLoading.postValue(true)
@@ -50,7 +60,16 @@ class PageViewModel : BaseViewModel() {
                 } else {
                     if (result.statusCode == 200 && result.objeto != null) {
                         DataSession.activities = result.objeto?.data?.activities!!
-                        activities.postValue(result.objeto?.data?.activities)
+                        if (filterMonth <= 0)
+                            activities.postValue(DataSession.activities)
+                        else {
+                            activities.postValue(
+                                ArrayList(
+                                    DataSession.activities.filter {
+                                        it.age == filterMonth
+                                    })
+                            )
+                        }
                     } else {
                         //TODO: perform no response actions
                     }
@@ -60,20 +79,25 @@ class PageViewModel : BaseViewModel() {
         }
     }
 
-    private fun getArticles() {
-        GlobalScope.launch {
-            isLoading.postValue(true)
-            val result = RetrofitHelper.getArticles(5)
-            if (result.isError) {
-                // TODO perform error actions
-            } else {
-                if (result.statusCode == 200 && result.objeto != null) {
-                    articles.postValue(result.objeto?.data?.articles)
+    fun getArticles() {
+        if (DataSession.articles.isNotEmpty()) {
+            articles.postValue(DataSession.articles)
+        } else {
+            GlobalScope.launch {
+                isLoading.postValue(true)
+                val result = RetrofitHelper.getArticles(5)
+                if (result.isError) {
+                    // TODO perform error actions
                 } else {
-                    //TODO perform no response actions
+                    if (result.statusCode == 200 && result.objeto != null) {
+                        DataSession.articles = result.objeto?.data?.articles!!
+                        articles.postValue(result.objeto?.data?.articles)
+                    } else {
+                        //TODO perform no response actions
+                    }
                 }
+                isLoading.postValue(false)
             }
-            isLoading.postValue(false)
         }
     }
 
